@@ -1,0 +1,22 @@
+{
+  "name": "storets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rbxtsc",
+    "watch": "rbxtsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rbxts/compiler-types": "^1.2.8-types.1",
+    "@rbxts/types": "^1.0.571",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@rbxts/net-ts": "^2.1.6",
+    "@rbxts/services": "^1.2.2"
+  }
+}
