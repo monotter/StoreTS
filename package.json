@@ -1,24 +1,32 @@
 {
-  "name": "@rbxts/store-ts",
-  "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
-  "homepage": "https://github.com/monotter/storets",
-  "repository": "https://github.com/monotter/storets",
-  "scripts": {
-    "build": "rbxtsc",
-    "watch": "rbxtsc -w"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@rbxts/compiler-types": "^1.2.8-types.1",
-    "@rbxts/types": "^1.0.571",
-    "typescript": "^4.6.2"
-  },
-  "dependencies": {
-    "@rbxts/net-ts": "^2.1.6",
-    "@rbxts/services": "^1.2.2"
-  }
+    "name": "@rbxts/store-ts",
+    "version": "1.0.2",
+    "description": "",
+    "main": "out/StoreTS.lua",
+    "scripts": {
+        "build": "rbxtsc",
+        "watch": "rbxtsc -w",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [],
+    "author": "",
+    "homepage": "https://github.com/monotter/storets",
+    "repository": "https://github.com/monotter/storets",
+    "license": "ISC",
+    "types": "out/StoreTS.d.ts",
+    "files": [
+        "out"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@rbxts/compiler-types": "^1.2.8-types.1",
+        "@rbxts/types": "^1.0.571",
+        "typescript": "^4.6.2"
+    },
+    "dependencies": {
+        "@rbxts/net-ts": "^2.1.8",
+        "@rbxts/services": "^1.2.2"
+    }
 }

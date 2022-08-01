@@ -3,14 +3,14 @@ import Net from "@rbxts/net-ts"
 
 const IsServer = RunService.IsServer()
 const STORES_NAME = "$Stores$"
-type ValueStoreListener<T> = (newValue: T | undefined, oldValue: T | undefined) => any
-type ValueStoreEvent = 'change' | 'set' | 'init'
+export type ValueStoreListener<T> = (newValue: T | undefined, oldValue: T | undefined) => any
+export type ValueStoreEvent = 'change' | 'set' | 'init'
 
-type SetStoreListener<T> = (value: T) => any
-type SetStoreEvent = 'add' | 'delete'
+export type SetStoreListener<T> = (value: T) => any
+export type SetStoreEvent = 'add' | 'delete'
 
-type MapStoreListener<K, T> = (key: K, value?: T) => any
-type MapStoreEvent = 'set' | 'delete'
+export type MapStoreListener<K, T> = (key: K, value?: T) => any
+export type MapStoreEvent = 'set' | 'delete'
 export class ValueStore<T> {
     private StoreValue?: T
     private Shared: boolean
