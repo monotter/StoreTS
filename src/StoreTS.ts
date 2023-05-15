@@ -15,7 +15,7 @@ if (!GLOBALS[STORES_NAME]) {
 function deepcopy(obj: unknown, seen?: unknown): any {
     // Handle non-tables and previously-seen tables.
     if (type(obj) !== 'table') { return obj }
-    if (seen && (seen as any)[obj as any]) { return (seen as any)[obj as any] }
+    if (seen !== undefined && (seen as Record<string, any>)[obj as string] !== undefined) { return(seen as Record<string, any>)[obj as string] }
 
     // New table; mark it as seen and copy recursively.
     let s: Record<any, any> = seen || { }
