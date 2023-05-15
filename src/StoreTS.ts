@@ -22,7 +22,7 @@ function deepcopy(obj: unknown, seen?: unknown): any {
     let res: Record<any, any> = {}
 
     s[obj as any] = res
-    for (let [k, v] of (obj as any)) {
+    for (let [k, v] of pairs(obj as any)) {
         res[deepcopy(k, s)] = deepcopy(v, s)
     }
     return setmetatable(res, getmetatable(obj as any) as any)
