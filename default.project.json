@@ -1,22 +1,19 @@
 {
-	"name": "storets",
+	"name": "roblox-ts-model",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"
 	],
 	"tree": {
-		"$className": "DataModel",
-        "ReplicatedStorage": {
-            "$className": "ReplicatedStorage",
-            "StoreTS": {
-                "$path": "out/StoreTS.lua",
-                "Include": {
-                    "$path": "include",
-                    "node_modules": {
-                        "$path": "node_modules/@rbxts"
-                    }
-                }
-            }
-        }
+		"$path": "out",
+		"include": {
+			"$path": "include",
+			"node_modules": {
+				"$className": "Folder",
+				"@rbxts": {
+					"$path": "node_modules/@rbxts"
+				}
+			}
+		}
 	}
 }
