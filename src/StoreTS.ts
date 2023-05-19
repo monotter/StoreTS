@@ -45,7 +45,7 @@ export class ValueStore<T> {
         this.Listeners = new Set()
         this.StoreName = StoreName
         this.Shared = Shared || false
-        this.StoreNet = new Net(`${STORES_NAME}/${this.StoreName}`)
+        this.StoreNet = new Net(`${STORES_NAME}/Value/${this.StoreName}`)
         this.InitializeEvents()
         if (InitializeValue !== undefined && StoreContainer.Values[this.StoreName] === undefined) {
             this.StoreNet.emit('Update Value', { oldValue: StoreContainer.Values[this.StoreName], newValue: InitializeValue, event: 'init' })
@@ -119,7 +119,7 @@ export class SetStore<T> {
         this.Listeners = new Set()
         this.StoreName = StoreName
         this.Shared = Shared || false
-        this.StoreNet = new Net(`${STORES_NAME}/${this.StoreName}`)
+        this.StoreNet = new Net(`${STORES_NAME}/Set/${this.StoreName}`)
         this.InitializeEvents()
         if (InitializeValue !== undefined && InitializeValue.size() > 0) {
             StoreContainer.Sets[this.StoreName] = new Set(InitializeValue as any[])
@@ -293,9 +293,13 @@ export class MapStore<K, T> {
         this.Listeners = new Set()
         this.StoreName = StoreName
         this.Shared = Shared || false
-        this.StoreNet = new Net(`${STORES_NAME}/${this.StoreName}`)
+        this.StoreNet = new Net(`${STORES_NAME}/Map/${this.StoreName}`)
         this.InitializeEvents()
         if (InitializeValue !== undefined && InitializeValue.size() > 0) {
+            InitializeValue.forEach((v, i) => {
+                if (v[0] !== undefined) { return }
+                InitializeValue.remove(InitializeValue.indexOf(v))
+            })
             StoreContainer.Maps[this.StoreName] = new Map(InitializeValue)
             StoreContainer.Maps[this.StoreName]!.forEach((value: any, key: any) => {
                 this.StoreNet.emit('Update Value', { Value: value, Key: key, event: 'set' })
@@ -319,6 +323,10 @@ export class MapStore<K, T> {
                 task.spawn(() => {
                     const Value = this.StoreNet.emit('Initialize Client', {}, true, true) as any[]
                     if (StoreContainer.Maps[this.StoreName]) { return }
+                    Value.forEach((v: [[any, any]], i) => {
+                        if (v[0] !== undefined) { return }
+                        Value.remove(Value.indexOf(v))
+                    })
                     StoreContainer.Maps[this.StoreName] = new Map(Value)
                     StoreContainer.Maps[this.StoreName]!.forEach((value, key) => {
                         this.CallListeners('set', key, value)
@@ -332,6 +340,10 @@ export class MapStore<K, T> {
                         StoreContainer.Maps[this.StoreName]!.clear()
                         StoreContainer.Maps[this.StoreName] = undefined
                     } else if (!StoreContainer.Maps[this.StoreName] && Value) {
+                        Value.forEach((v, i) => {
+                            if (v[0] !== undefined) { return }
+                            Value.remove(Value.indexOf(v))
+                        })
                         StoreContainer.Maps[this.StoreName] = new Map(Value)
                         StoreContainer.Maps[this.StoreName]!.forEach((val, key) => {
                             this.CallListeners('set', key, val)
@@ -340,6 +352,10 @@ export class MapStore<K, T> {
                         StoreContainer.Maps[this.StoreName] = undefined
                     } else if (StoreContainer.Maps[this.StoreName] && Value) {
                         let last = StoreContainer.Maps[this.StoreName]!
+                        Value.forEach((v, i) => {
+                            if (v[0] !== undefined) { return }
+                            Value.remove(Value.indexOf(v))
+                        })
                         StoreContainer.Maps[this.StoreName] = new Map(Value)
                         StoreContainer.Maps[this.StoreName]!.forEach((val: unknown, key: unknown) => {
                             const current: unknown = last.get(key)
@@ -377,6 +393,10 @@ export class MapStore<K, T> {
             StoreContainer.Maps[this.StoreName]!.clear()
             StoreContainer.Maps[this.StoreName] = undefined
         } else if (!StoreContainer.Maps[this.StoreName] && Value) {
+            Value.forEach((v, i) => {
+                if (v[0] !== undefined) { return }
+                Value.remove(Value.indexOf(v))
+            })
             StoreContainer.Maps[this.StoreName] = new Map(Value)
             StoreContainer.Maps[this.StoreName]!.forEach((val, key) => {
                 this.StoreNet.emit('Update Value', { Value: val, Key: key, event: 'set' })
@@ -385,6 +405,10 @@ export class MapStore<K, T> {
             StoreContainer.Maps[this.StoreName] = undefined
         } else if (StoreContainer.Maps[this.StoreName] && Value) {
             let last = StoreContainer.Maps[this.StoreName]!
+            Value.forEach((v, i) => {
+                if (v[0] !== undefined) { return }
+                Value.remove(Value.indexOf(v))
+            })
             StoreContainer.Maps[this.StoreName] = new Map(Value)
             StoreContainer.Maps[this.StoreName]!.forEach((val: unknown, key: unknown) => {
                 const current: unknown = last.get(key)
