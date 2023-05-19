@@ -316,7 +316,7 @@ export class MapStore<K, T> {
                 this.StoreNet.addListener('Initialize Client', () => {
                     if (StoreContainer.Maps[this.StoreName] === undefined) { return [] }
                     let a: any[] = []
-                    StoreContainer.Maps[this.StoreName]!.forEach((V, K) => { a.push([K, V]) })
+                    StoreContainer.Maps[this.StoreName]!.forEach((V, K: unknown) => { if (K === undefined) { return } a.push([K, V]) })
                     return a
                 }, true)
             } else {
@@ -429,7 +429,7 @@ export class MapStore<K, T> {
                 return
             }
             let a: any[] = []
-            StoreContainer.Maps[this.StoreName]!.forEach((V, K) => { a.push([K, V]) })
+            StoreContainer.Maps[this.StoreName]!.forEach((V, K: unknown) => {  if (K === undefined) { return } a.push([K, V]) })
             this.StoreNet.emit('Update Client', { Value: a }, true)
         }
     }
@@ -453,7 +453,7 @@ export class MapStore<K, T> {
         if (IsServer && this.Shared) {
             if (StoreContainer.Maps[this.StoreName] === undefined) { return [] }
             let a: any[] = []
-            StoreContainer.Maps[this.StoreName]!.forEach((V, K) => { a.push([K, V]) })
+            StoreContainer.Maps[this.StoreName]!.forEach((V, K: unknown) => {  if (K === undefined) { return } a.push([K, V]) })
             this.StoreNet.emit('Update Client', { Value: a }, true)
         }
         if (StoreContainer.Maps[this.StoreName]!.size() <= 0) { StoreContainer.Maps[this.StoreName] = undefined }
@@ -469,7 +469,7 @@ export class MapStore<K, T> {
         if (IsServer && this.Shared) {
             if (StoreContainer.Maps[this.StoreName] === undefined) { return [] }
             let a: any[] = []
-            StoreContainer.Maps[this.StoreName]!.forEach((V, K) => { a.push([K, V]) })
+            StoreContainer.Maps[this.StoreName]!.forEach((V, K: unknown) => {  if (K === undefined) { return } a.push([K, V]) })
             this.StoreNet.emit('Update Client', { Value: a }, true)
         }
         if (StoreContainer.Maps[this.StoreName]!.size() <= 0) { StoreContainer.Maps[this.StoreName] = undefined }
